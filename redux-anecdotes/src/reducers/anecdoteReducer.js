@@ -17,6 +17,7 @@ const asObject = (anecdote) => {
   }
 }
 
+// 6.6 Was already done when pushing 6.4
 const createAnecdote = (content) => { return {
   type: 'NEW_ANECDOTE',
   payload: {
