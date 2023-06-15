@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from "react-redux"
 import { vote } from '../reducers/anecdoteReducer'
 
+// Component created on pushing 6.4, refactored Anecdotes -> AnecdoteList on 6.7
+
 const Anecdote = ({ anecdote, handleClick }) => {
   return (
     <div>
@@ -11,7 +13,7 @@ const Anecdote = ({ anecdote, handleClick }) => {
   )
 }
 
-const Anecdotes = () => {
+const AnecdoteList = () => {
   const dispatch = useDispatch()
   const anecdotes = useSelector(state => state)
 
@@ -31,4 +33,4 @@ const Anecdotes = () => {
   )
 }
 
-export default Anecdotes
+export default AnecdoteList

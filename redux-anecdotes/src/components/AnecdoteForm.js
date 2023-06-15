@@ -1,7 +1,9 @@
 import { useDispatch } from "react-redux"
 import { createAnecdote } from "../reducers/anecdoteReducer"
 
-const NewAnecdote = () => {
+// Component created on pushing 6.4, refactored NewAnecdote -> AnecdoteForm on 6.7
+
+const AnecdoteForm = () => {
   const dispatch = useDispatch()
 
   const addAnecdote = (event) => {
@@ -23,4 +25,4 @@ const NewAnecdote = () => {
   )
 }
 
-export default NewAnecdote
+export default AnecdoteForm
