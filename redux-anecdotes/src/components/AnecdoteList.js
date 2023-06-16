@@ -4,6 +4,7 @@ import { vote } from '../reducers/anecdoteReducer'
 // Component created on pushing 6.4, refactored Anecdotes -> AnecdoteList on 6.7
 
 const Anecdote = ({ anecdote, handleClick }) => {
+  console.log('Anecdote handleClick: ', handleClick)
   return (
     <div>
       {anecdote.content} <br />
@@ -25,15 +26,20 @@ const AnecdoteList = () => {
 
   console.log(anecdotes)
 
+  const handleVote = (anecdote) => {
+    dispatch(vote(anecdote.id))
+  }
+
   return(
     <div>
       {anecdotes
+        .slice()
         .sort((a, b) => b.votes - a.votes)
         .map(anecdote =>
           <Anecdote
             key={anecdote.id}
             anecdote={anecdote}
-            handleClick={() => dispatch(vote(anecdote.id))}
+            handleClick={handleVote}
           />
         )
       }
