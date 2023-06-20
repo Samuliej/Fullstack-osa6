@@ -12,6 +12,7 @@ const App = () => {
   const result = useQuery(
     'anecdotes', getAnecdotes,
     {
+      refetchOnWindowFocus: false,
       retry: 1
     }
   )
