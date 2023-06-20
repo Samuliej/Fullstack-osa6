@@ -9,7 +9,6 @@ const AnecdoteForm = () => {
 
   const addAnecdote = async (event) => {
     event.preventDefault()
-    // Get the value of the input field
     const content = event.target.anecdote.value
     event.target.anecdote.value = ''
     dispatch(createAnecdote(content))
