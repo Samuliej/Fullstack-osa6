@@ -2,16 +2,35 @@ import axios from "axios"
 
 const baseUrl = 'http://localhost:3001/anecdotes'
 
-export const getAnecdotes = () =>
-  axios.get(baseUrl).then(res => res.data)
+export const getAnecdotes = async () => {
+  try {
+    const response = await axios.get(baseUrl)
+    return response.data
+  } catch (error) {
+    console.log('Error in getting anecdotes', error);
+  }
+}
 
-export const createAnecdote = newAnecdote =>
-  axios
-    .post(baseUrl, newAnecdote)
-    .then(res => res.data)
-    .catch(error => {
-      console.log('Anecdote must be atleast 5 characters long: ', error.message)
-    })
+// Muutin backendin käyttämään async awaitia
+// Joten joudun itse tarkistamaan uuden anekdootin pituuden
+export const createAnecdote = async newAnecdote => {
+  if (newAnecdote.content.length < 5)
+    throw new Error('Anecdote must be at least 5 characters long')
 
-export const updateAnecdote = updatedAnecdote =>
-  axios.put(`${baseUrl}/${updatedAnecdote.id}`, updatedAnecdote).then(res => res.data)
+  try {
+    const response = await axios.post(baseUrl, newAnecdote)
+    return response.data
+  } catch (error) {
+    return error.response.status
+  }
+}
+
+
+export const updateAnecdote = async updatedAnecdote => {
+  try {
+    const response = await axios.put(`${baseUrl}/${updatedAnecdote.id}`, updatedAnecdote)
+    return response.data
+  } catch (error) {
+    console.log('Error in updating anecdote', error)
+  }
+}

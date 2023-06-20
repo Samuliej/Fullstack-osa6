@@ -7,6 +7,12 @@ const AnecdoteForm = () => {
 
   const queryClient = useQueryClient()
   const newAnecdoteMutation = useMutation(createAnecdote, {
+    onError: () => {
+      notificationDispatch({
+        type: 'SET_NOTIFICATION',
+        payload: 'Anecdote must be atleast 5 characters long'
+      })
+    },
     onSuccess: (newAnecdote) => {
       const anecdotes = queryClient.getQueryData('anecdotes')
       queryClient.setQueryData('anecdotes', anecdotes.concat(newAnecdote))
