@@ -12,3 +12,6 @@ export const createAnecdote = newAnecdote =>
     .catch(error => {
       console.log('Anecdote must be atleast 5 characters long: ', error.message)
     })
+
+export const updateAnecdote = updatedAnecdote =>
+  axios.put(`${baseUrl}/${updatedAnecdote.id}`, updatedAnecdote).then(res => res.data)
