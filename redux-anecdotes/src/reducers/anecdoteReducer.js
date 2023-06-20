@@ -17,7 +17,7 @@ const anecdoteSlice = createSlice({
       if (anecdoteToUpdate) {
         anecdoteToUpdate.votes = votes
       }
-    }
+    },
   }
 })
 
