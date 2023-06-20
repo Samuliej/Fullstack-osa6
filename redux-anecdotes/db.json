@@ -39,6 +39,11 @@
       "content": "Anecdote that should make it's way to the backend",
       "votes": 0,
       "id": "_47K-a7"
+    },
+    {
+      "content": "Redux Thunk anecdote",
+      "votes": 0,
+      "id": "nV5BSjs"
     }
   ]
 }
