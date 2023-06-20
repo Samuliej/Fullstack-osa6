@@ -1,9 +1,14 @@
 import AnecdoteForm from './components/AnecdoteForm'
-import Notification from './components/Notification'
 import { useQuery, useQueryClient, useMutation } from 'react-query'
 import { getAnecdotes, updateAnecdote } from './requests'
 
+import { useNotificationDispatch, useNotificationState } from './NotificationContext'
+import Notification from './components/Notification'
+import Anecdote from './components/Anecdote'
+
 const App = () => {
+  const notification = useNotificationState()
+  const notificationDispatch = useNotificationDispatch()
   const queryClient = useQueryClient()
 
   const updateAnecdoteMutation = useMutation(updateAnecdote, {
@@ -11,6 +16,10 @@ const App = () => {
       const anecdotes = queryClient.getQueryData('anecdotes')
       queryClient.setQueryData('anecdotes', anecdotes.map(anecdote =>
         anecdote.id !== updatedAnecdote.id ? anecdote : updatedAnecdote))
+      notificationDispatch({
+        type: 'SET_NOTIFICATION',
+        payload: `You voted for '${updatedAnecdote.content}'`
+      })
     }
   })
 
@@ -25,7 +34,6 @@ const App = () => {
       retry: 1
     }
   )
-  console.log(result)
 
   const anecdotes = result.data
 
@@ -34,24 +42,14 @@ const App = () => {
   }
 
   return (
-    <div>
-      <h3>Anecdote app</h3>
-
-      <Notification />
-      <AnecdoteForm />
-
-      {anecdotes.map(anecdote =>
-        <div key={anecdote.id}>
-          <div>
-            {anecdote.content}
-          </div>
-          <div>
-            has {anecdote.votes}
-            <button onClick={() => handleVote(anecdote)}>vote</button>
-          </div>
-        </div>
-      )}
-    </div>
+      <div>
+        <h3>Anecdote app</h3>
+        <Notification message={notification} />
+        <AnecdoteForm />
+        {anecdotes.map(anecdote => (
+          <Anecdote key={anecdote.id} anecdote={anecdote} handleVote={handleVote} />
+        ))}
+      </div>
   )
 }
 
